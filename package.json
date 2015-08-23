@@ -1,0 +1,16 @@
+{
+  "name": "redux-react-router-transitions",
+  "version": "0.1.0",
+  "description": "Define transitions based on actions",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel src --out-dir lib",
+    "prepublish": "npm run build"
+  },
+  "author": "Johannes Lumpe <johannes@johanneslumpe.de>",
+  "license": "MIT",
+  "devDependencies": {
+    "babel": "^5.8.21"
+  }
+}
