@@ -15,6 +15,14 @@ export default {
           title,
           id: ++id
         }
+      },
+      meta: {
+        transition: ({ items: { lastItemId } }, action) => ({
+          path: '/item-details/:itemId',
+          params: {
+            itemId: lastItemId
+          }
+        })
       }
     };
   },
@@ -24,6 +32,11 @@ export default {
       type: ITEM_DELETE,
       payload: {
         id
+      },
+      meta: {
+        transition: (state, action) => ({
+          path: '/item-list'
+        })
       }
     };
   }

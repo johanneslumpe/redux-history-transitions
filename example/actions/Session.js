@@ -7,13 +7,19 @@ export default {
 
   login() {
     return {
-      type: LOGGED_IN
+      type: LOGGED_IN,
+      meta: {
+        transition: (state, action) => ({ path: '/logged-in'})
+      }
     };
   },
 
   logout() {
     return {
-      type: LOGGED_OUT
+      type: LOGGED_OUT,
+      meta: {
+        transition: (state, action) => ({ path: '/' })
+      }
     };
   }
 }
