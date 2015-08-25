@@ -3,9 +3,9 @@ import storeEnhancer from 'redux-react-router-transitions';
 
 import reducers from './reducers/';
 
-export default (router) => {
+export default (router, catchAllHandler) => {
   const finalCreateStore = compose(
-    storeEnhancer(router),
+    storeEnhancer(router, catchAllHandler),
     createStore
   );
 
