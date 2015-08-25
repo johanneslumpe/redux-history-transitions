@@ -76,3 +76,7 @@ npm install
 npm start
 open http://localhost:3000
 ```
+
+## FAQ
+### Why is this a store enhancer and not a middleware?
+Because the transition handlers should receive the state *after*  the action has been dispatched. And I did not want to use something like `_.defer`.
