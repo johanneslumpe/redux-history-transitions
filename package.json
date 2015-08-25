@@ -1,6 +1,6 @@
 {
   "name": "redux-react-router-transitions",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Define transitions based on actions",
   "main": "lib/index.js",
   "scripts": {
