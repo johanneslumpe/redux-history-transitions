@@ -1,22 +1,26 @@
-export default (transitionMap, router) => {
+export default (router, transitionHandler) => {
   return next => (reducer, initialState) => {
     const store = next(reducer, initialState);
 
     return {
       ...store,
       dispatch(action) {
-        const { type } = action;
-        const transitionHandler = transitionMap[type];
+        const { type, meta } = action;
+        const transition = meta ?
+          (meta.transition || transitionHandler) :
+          transitionHandler;
+
         store.dispatch(action);
 
-        if (transitionHandler) {
-          const handlerResult = transitionHandler(store.getState(), action);
+        const transitionResult = transition ?
+          transition(store.getState(), action) :
+          null;
 
-          if (handlerResult) {
-            const { path, query, params } = handlerResult
-            router.transitionTo(path, params, query);
-          }
+        if (transitionResult) {
+          const { path, query, params } = transitionResult;
+          router.transitionTo(path, params, query);
         }
+
         return action;
       }
     };
