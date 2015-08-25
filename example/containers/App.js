@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 
 import App from '../components/App';
 import sessionActions from '../actions/Session';
+import routingActions from '../actions/Routing';
 
 const mapStateToProps = ({ session }) => ({
   loggedIn: session.loggedIn
@@ -11,6 +12,7 @@ const mapStateToProps = ({ session }) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators(sessionActions, dispatch),
+  ...bindActionCreators(routingActions, dispatch),
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
