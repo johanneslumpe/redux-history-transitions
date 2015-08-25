@@ -1,4 +1,4 @@
-export default (router, transitionHandler) => {
+export default (router, catchAllHandler) => {
   return next => (reducer, initialState) => {
     const store = next(reducer, initialState);
 
@@ -7,8 +7,8 @@ export default (router, transitionHandler) => {
       dispatch(action) {
         const { type, meta } = action;
         const transition = meta ?
-          (meta.transition || transitionHandler) :
-          transitionHandler;
+          (meta.transition || catchAllHandler) :
+          catchAllHandler;
 
         store.dispatch(action);
 
