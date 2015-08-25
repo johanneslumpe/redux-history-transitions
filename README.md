@@ -80,3 +80,6 @@ open http://localhost:3000
 ## FAQ
 ### Why is this a store enhancer and not a middleware?
 Because the transition handlers should receive the state *after*  the action has been dispatched. And I did not want to use something like `_.defer`.
+
+### Does this work with `react-router` 1.0?
+Not currently, but there is a [pending PR](https://github.com/rackt/react-router/pull/1728) which will make the 1.0 branch much more modular. After that PR is merged this should work flawlessly.
