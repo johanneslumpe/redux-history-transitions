@@ -15,6 +15,6 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "babel": "^5.8.21"
+    "babel": "^5.8.23"
   }
 }
