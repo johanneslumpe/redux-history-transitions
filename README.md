@@ -1,9 +1,11 @@
 # redux-react-router-transitions
+
 Router transitions based on arbitrary actions.
 
 This store enhancer allows you to co-locate transitions next to your actions and have them automatically executed on your router instance, after the action has been dispatched.
 
 ## Why?
+
 A typical case is that you want to redirect your user to another page, when they log in. There are multiple ways of doing this. You could for example listen to your store and perform a transition based on some kind of `loginSuccessful` flag. But this type of flag is something that does not actually belong into your state, as it is only used as an internal flag so you know when to transition.
 
 Another way would be to use something like RX, and listen to distinct state changed, so you could transition your user to a page, whenever the `loggedIn` or `user` prop on your state changes.
@@ -21,9 +23,8 @@ import storeEnhancer from 'redux-react-router-transitions';
 // you have to create your router here and pass it to the store enhancer
 
 const finalCreateStore = compose(
-  storeEnhancer(router),
-  createStore
-);
+  storeEnhancer(router)
+)(createStore);
 ```
 
 Now you can dispatch actions in the following form and have your desired transition automatically executed for you:
@@ -63,9 +64,11 @@ coming soon
 
 
 ## Example
+
 For a working example check out the `example` directory!
 
 ### Running the example app
+
 ```
 git clone https://github.com/johanneslumpe/redux-react-router-transitions.git
 cd redux-react-router-transitions
@@ -78,8 +81,15 @@ open http://localhost:3000
 ```
 
 ## FAQ
+
 ### Why is this a store enhancer and not a middleware?
+
 Because the transition handlers should receive the state *after*  the action has been dispatched. And I did not want to use something like `_.defer`.
 
 ### Does this work with `react-router` 1.0?
+
 Not currently, but there is a [pending PR](https://github.com/rackt/react-router/pull/1728) which will make the 1.0 branch much more modular. After that PR is merged this should work flawlessly.
+
+### Can I perform [`replaceWith`](https://rackt.github.io/react-router/#-replacewith-routenameorpath-params-query-) transitions instead of `transitionTo`?
+
+Yes, just add `replace: true` to the object returned by your action's `meta.transition` function.

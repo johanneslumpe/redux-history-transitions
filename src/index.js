@@ -6,19 +6,23 @@ export default (router, catchAllHandler) => {
       ...store,
       dispatch(action) {
         const { type, meta } = action;
-        const transition = meta ?
+        const transitionMetaFunc = meta ?
           (meta.transition || catchAllHandler) :
           catchAllHandler;
 
         store.dispatch(action);
 
-        const transitionResult = transition ?
-          transition(store.getState(), action) :
+        const transitionData = transitionMetaFunc ?
+          transitionMetaFunc(store.getState(), action) :
           null;
 
-        if (transitionResult) {
-          const { path, query, params } = transitionResult;
-          router.transitionTo(path, params, query);
+        if (transitionData) {
+          const { path, query, params, replace } = transitionData;
+          if (replace) {
+            router.replaceWith(path, params, query);
+          } else {
+            router.transitionTo(path, params, query);
+          }
         }
 
         return action;
