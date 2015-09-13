@@ -1,17 +1,17 @@
 import React from 'react';
-import { create as createRouter, HistoryLocation } from 'react-router';
+import ReactDOM from 'react-dom';
+import { Router } from 'react-router';
 import { Provider } from 'react-redux';
+import createHistory from 'history/lib/createBrowserHistory';
+import { useQueries } from 'history';
 
 import routes from './routes/';
 import createStore from './createStore';
 import { TRANSITION_TO_ROOT } from './constants/ActionTypes';
 
-const router = createRouter({
-  location: HistoryLocation,
-  routes
-});
+const history = useQueries(createHistory)();
 
-const store = createStore(router, (state, { type }) => {
+const store = createStore(history, (state, { type }) => {
   if (type === TRANSITION_TO_ROOT) {
     // this does not do anything useful right now, but serves
     // as an example how a catch-all handler could be used
@@ -21,10 +21,10 @@ const store = createStore(router, (state, { type }) => {
   }
 })();
 
-router.run((Handler, state) => {
-  React.render((
-    <Provider store={store}>
-      {() => <Handler {...state} />}
-    </Provider>
-  ), document.getElementById('app'));
-});
+ReactDOM.render((
+  <Provider store={store}>
+    <Router history={history}>
+      {routes}
+    </Router>
+  </Provider>
+), document.getElementById('app'));
