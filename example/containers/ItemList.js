@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -14,8 +14,10 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
-export default class ItemListContainer {
+export default class ItemListContainer extends Component {
+
   render() {
     return <ItemList {...this.props} />;
   }
+
 }

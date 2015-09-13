@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router';
 
 import { adjectives, nouns } from '../words';
@@ -6,7 +6,7 @@ import { adjectives, nouns } from '../words';
 const getRandomWord = (list) => list[Math.round((list.length - 1) * Math.random())];
 const getItemName = () => `${getRandomWord(adjectives)} ${getRandomWord(nouns)}`;
 
-export default class ItemList {
+export default class ItemList extends Component {
 
   handleAddClick = (e) => {
     this.props.addItem(getItemName());

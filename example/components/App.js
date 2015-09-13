@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router';
 
-export default class App {
+export default class App extends Component {
 
   handleLoginClick = (e) => {
     this.props.login();

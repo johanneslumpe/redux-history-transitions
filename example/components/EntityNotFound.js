@@ -1,12 +1,4 @@
 import React from 'react';
 
-export default class EntityNotFound {
-
-  render() {
-    return (
-      <div>
-        We cannot find that entity :(
-      </div>
-    );
-  }
-}
+const EntityNotFound = () => (<div>We cannot find that entity :(</div>);
+export default EntityNotFound;
