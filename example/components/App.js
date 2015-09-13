@@ -1,5 +1,5 @@
 import React from 'react';
-import { RouteHandler, Link } from 'react-router';
+import { Link } from 'react-router';
 
 export default class App {
 
@@ -24,7 +24,7 @@ export default class App {
         <Link to="/item-list">List items</Link>
         <p>Logged in: {this.props.loggedIn ? 'yes': 'no'}</p>
 
-        <RouteHandler />
+        {this.props.children}
       </div>
     );
   }
