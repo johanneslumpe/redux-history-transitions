@@ -21,6 +21,8 @@ import { createStore, compose } from 'redux';
 import storeEnhancer from 'redux-react-router-transitions';
 
 // you have to create your history instance here and pass it to the store enhancer
+// Note: in order to use `query`, you have to enhance your history using the `useQueries`
+// enhancer!
 
 const finalCreateStore = compose(
   storeEnhancer(history)
