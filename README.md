@@ -1,6 +1,6 @@
 # redux-react-router-transitions
 
-Router transitions based on arbitrary actions.
+`history` transitions based on arbitrary actions.
 
 This store enhancer allows you to co-locate transitions next to your actions and have them automatically executed on your router instance, after the action has been dispatched.
 
@@ -20,10 +20,10 @@ Create an enhanced store like this:
 import { createStore, compose } from 'redux';
 import storeEnhancer from 'redux-react-router-transitions';
 
-// you have to create your router here and pass it to the store enhancer
+// you have to create your history instance here and pass it to the store enhancer
 
 const finalCreateStore = compose(
-  storeEnhancer(router)
+  storeEnhancer(history)
 )(createStore);
 ```
 
@@ -42,12 +42,12 @@ export default {
       }
       meta: {
         transition: (state, action) => ({
-          path: '/logged-in/:userId',
+          path: `/logged-in/${action.payload.userId}`,
           query: {
             some: 'queryParam'
           },
-          params: {
-            userId: action.payload.userId
+          state: {
+            some: 'state'
           }
         })
       }
@@ -56,12 +56,11 @@ export default {
 }
 ```
 
-Now every time you dispatch your `login` action, a transition to `/logged-in` will happen automatically. Of course `query` and `params` are optional. They are just here to show a complete example.
+Now every time you dispatch your `login` action, a transition to `/logged-in/SOMEUSERID` will happen automatically. Of course `query` and `state` are optional. They are just here to show a complete example.
 
 ## API
 
 coming soon
-
 
 ## Example
 
@@ -86,10 +85,6 @@ open http://localhost:3000
 
 Because the transition handlers should receive the state *after*  the action has been dispatched. And I did not want to use something like `_.defer`.
 
-### Does this work with `react-router` 1.0?
-
-Not currently, but there is a [pending PR](https://github.com/rackt/react-router/pull/1728) which will make the 1.0 branch much more modular. After that PR is merged this should work flawlessly.
-
-### Can I perform [`replaceWith`](https://rackt.github.io/react-router/#-replacewith-routenameorpath-params-query-) transitions instead of `transitionTo`?
+### Can I perform `replaceState` transitions instead of `pushState`?
 
 Yes, just add `replace: true` to the object returned by your action's `meta.transition` function.
