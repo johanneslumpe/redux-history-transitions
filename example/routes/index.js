@@ -8,10 +8,10 @@ import ItemDetailsContainer from '../containers/ItemDetails';
 import EntityNotFound from '../components/EntityNotFound';
 
 export default (
-  <Route path="/" handler={AppContainer}>
-    <Route path="/logged-in" handler={LoggedInContainer} />
-    <Route path="/item-list" handler={ItemListContainer} />
-    <Route path="/item-details/:itemId" handler={ItemDetailsContainer} />
-    <Route path="/entity-not-found" handler={EntityNotFound} />
+  <Route path="/" component={AppContainer}>
+    <Route path="/logged-in" component={LoggedInContainer} />
+    <Route path="/item-list" component={ItemListContainer} />
+    <Route path="/item-details/:itemId" component={ItemDetailsContainer} />
+    <Route path="/entity-not-found" component={EntityNotFound} />
   </Route>
 );
