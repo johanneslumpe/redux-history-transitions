@@ -18,10 +18,7 @@ export default {
       },
       meta: {
         transition: ({ items: { lastItemId } }, action) => ({
-          path: '/item-details/:itemId',
-          params: {
-            itemId: lastItemId
-          }
+          path: `/item-details/${lastItemId}`,
         })
       }
     };
