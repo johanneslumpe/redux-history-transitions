@@ -6,8 +6,7 @@ import reducers from './reducers/';
 export default (router, catchAllHandler) => {
   const finalCreateStore = compose(
     storeEnhancer(router, catchAllHandler),
-    createStore
-  );
+  )(createStore);
 
   return () => finalCreateStore(reducers);
 }
