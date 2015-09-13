@@ -1,4 +1,4 @@
-export default (router, catchAllHandler) => {
+export default (history, catchAllHandler) => {
   return next => (reducer, initialState) => {
     const store = next(reducer, initialState);
 
@@ -17,12 +17,10 @@ export default (router, catchAllHandler) => {
           null;
 
         if (transitionData) {
-          const { path, query, params, replace } = transitionData;
-          if (replace) {
-            router.replaceWith(path, params, query);
-          } else {
-            router.transitionTo(path, params, query);
-          }
+          const { path, query, replace, state } = transitionData;
+          const method = replace ? 'replaceState' : 'pushState';
+
+          history[method](state, path, query);
         }
 
         return action;
