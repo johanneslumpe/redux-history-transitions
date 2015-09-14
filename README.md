@@ -14,6 +14,12 @@ Another way would be to use something like RX, and listen to distinct state chan
 
 While these approaches work, they make it hard to connect a transition to a specific action. Your transitions are also spread out over your code. `redux-history-transitions` allows you to embed your transitions directly within your actions and have them executed after your action has been dispatched.
 
+## Installation
+
+```
+npm install --save redux-history-transitions
+```
+
 ## Usage
 
 Create an enhanced store like this:
@@ -61,10 +67,6 @@ export default {
 ```
 
 Now every time you dispatch your `login` action, a transition to `/logged-in/SOMEUSERID` will happen automatically. Of course `query` and `state` are optional. They are just here to show a complete example.
-
-## API
-
-coming soon
 
 ## Example
 
