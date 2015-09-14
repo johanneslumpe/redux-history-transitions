@@ -1,4 +1,6 @@
-# redux-react-router-transitions
+# redux-history-transitions
+
+**Note: this library was called `redux-react-router-transitions` before, but since version 0.4.0 the hard dependency on react-router has been removed.  You can use this library with any routing system that utilizes the `history` library.**
 
 `history` transitions based on arbitrary actions.
 
@@ -10,7 +12,7 @@ A typical case is that you want to redirect your user to another page, when they
 
 Another way would be to use something like RX, and listen to distinct state changed, so you could transition your user to a page, whenever the `loggedIn` or `user` prop on your state changes.
 
-While these approaches work, they make it hard to connect a transition to a specific action. Your transitions are also spread out over your code. `redux-react-router-transitions` allows your to embed your transitions directly within your actions and have them executed after your action has been dispatched.
+While these approaches work, they make it hard to connect a transition to a specific action. Your transitions are also spread out over your code. `redux-history-transitions` allows you to embed your transitions directly within your actions and have them executed after your action has been dispatched.
 
 ## Usage
 
@@ -18,7 +20,7 @@ Create an enhanced store like this:
 
 ```javascript
 import { createStore, compose } from 'redux';
-import storeEnhancer from 'redux-react-router-transitions';
+import storeEnhancer from 'redux-history-transitions';
 
 // you have to create your history instance here and pass it to the store enhancer
 // Note: in order to use `query`, you have to enhance your history using the `useQueries`
@@ -71,8 +73,8 @@ For a working example check out the `example` directory!
 ### Running the example app
 
 ```
-git clone https://github.com/johanneslumpe/redux-react-router-transitions.git
-cd redux-react-router-transitions
+git clone https://github.com/johanneslumpe/redux-history-transitions.git
+cd redux-history-transitions
 npm install
 
 cd example
