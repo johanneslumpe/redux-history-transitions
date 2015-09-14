@@ -1,7 +1,7 @@
 {
-  "name": "redux-react-router-transitions-example",
+  "name": "redux-history-transitions-example",
   "version": "0.1.0",
-  "description": "Example for redux-react-router-transitions",
+  "description": "Example for redux-history-transitions",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

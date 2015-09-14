@@ -1,5 +1,5 @@
 import { createStore, compose } from 'redux';
-import storeEnhancer from 'redux-react-router-transitions';
+import storeEnhancer from 'redux-history-transitions';
 
 import reducers from './reducers/';
 

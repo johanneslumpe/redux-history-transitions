@@ -22,8 +22,8 @@ module.exports = {
   resolve: {
 
     alias: {
-      'redux-react-router-transitions/lib': path.join(__dirname, '..', 'src'),
-      'redux-react-router-transitions': path.join(__dirname, '..', 'src'),
+      'redux-history-transitions/lib': path.join(__dirname, '..', 'src'),
+      'redux-history-transitions': path.join(__dirname, '..', 'src'),
     },
 
     extensions: ['', '.js']
