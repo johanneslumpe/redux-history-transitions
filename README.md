@@ -4,7 +4,7 @@
 
 `history` transitions based on arbitrary actions.
 
-This store enhancer allows you to co-locate transitions next to your actions and have them automatically executed on your router instance, after the action has been dispatched.
+This store enhancer allows you to co-locate transitions next to your actions and have them automatically executed on your history instance, after the action has been dispatched.
 
 ## Why?
 
