@@ -1,6 +1,6 @@
 {
-  "name": "redux-react-router-transitions",
-  "version": "0.3.0",
+  "name": "redux-history-transitions",
+  "version": "0.4.0",
   "description": "Define transitions based on actions",
   "main": "lib/index.js",
   "scripts": {
@@ -11,7 +11,7 @@
   "author": "Johannes Lumpe <johannes@johanneslumpe.de>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/johanneslumpe/redux-react-router-transitions.git"
+    "url": "https://github.com/johanneslumpe/redux-history-transitions.git"
   },
   "license": "MIT",
   "devDependencies": {
