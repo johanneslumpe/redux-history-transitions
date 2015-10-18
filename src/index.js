@@ -10,11 +10,15 @@ export default (history, catchAllHandler) => {
           (meta.transition || catchAllHandler) :
           catchAllHandler;
 
+        const prevState = transitionMetaFunc && store.getState();
+
         store.dispatch(action);
 
-        const transitionData = transitionMetaFunc ?
-          transitionMetaFunc(store.getState(), action) :
-          null;
+        const nextState = transitionMetaFunc && store.getState();
+
+        let transitionData = transitionMetaFunc && (
+          transitionMetaFunc(prevState, nextState, action)
+        );
 
         if (transitionData) {
           const { path, query, replace, state } = transitionData;
