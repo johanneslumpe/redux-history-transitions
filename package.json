@@ -1,6 +1,6 @@
 {
   "name": "redux-history-transitions",
-  "version": "0.4.2",
+  "version": "1.0.0",
   "description": "Define transitions based on actions",
   "main": "lib/index.js",
   "scripts": {
