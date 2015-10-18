@@ -11,11 +11,11 @@ import { TRANSITION_TO_ROOT } from './constants/ActionTypes';
 
 const history = useQueries(createHistory)();
 
-const store = createStore(history, (state, { type }) => {
+const store = createStore(history, (prevState, nextState, { type }) => {
   if (type === TRANSITION_TO_ROOT) {
     // this does not do anything useful right now, but serves
     // as an example how a catch-all handler could be used
-    const { lastItemId } = state.items;
+    const { items: { lastItemId } } = nextState;
     const query = lastItemId ? { lastItemId } : null;
     return { path: '/', query };
   }

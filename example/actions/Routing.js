@@ -9,7 +9,9 @@ export default {
     return {
       type: ENTITY_NOT_FOUND,
       meta: {
-        transition: (state, action) => ({ path: '/entity-not-found' })
+        transition: (prevState, nextState, action) => (
+          { path: '/entity-not-found' }
+        )
       }
     }
   },

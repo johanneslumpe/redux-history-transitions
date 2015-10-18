@@ -17,7 +17,7 @@ export default {
         }
       },
       meta: {
-        transition: ({ items: { lastItemId } }, action) => ({
+        transition: (prevState, { items: { lastItemId } }, action) => ({
           path: `/item-details/${lastItemId}`,
         })
       }
@@ -31,7 +31,7 @@ export default {
         id
       },
       meta: {
-        transition: (state, action) => ({
+        transition: (prevState, nextState, action) => ({
           path: '/item-list'
         })
       }
