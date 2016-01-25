@@ -16,8 +16,8 @@ const store = createStore(history, (prevState, nextState, { type }) => {
     // this does not do anything useful right now, but serves
     // as an example how a catch-all handler could be used
     const { items: { lastItemId } } = nextState;
-    const query = lastItemId ? { lastItemId } : null;
-    return { path: '/', query };
+    const search = lastItemId ? { lastItemId } : null;
+    return { pathname: '/', search };
   }
 })();
 
