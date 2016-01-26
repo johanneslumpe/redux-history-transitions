@@ -9,7 +9,7 @@ export default {
     return {
       type: LOGGED_IN,
       meta: {
-        transition: (prevState, nextState, action) => ({ path: '/logged-in'})
+        transition: (prevState, nextState, action) => ({ pathname: '/logged-in'})
       }
     };
   },
@@ -18,7 +18,7 @@ export default {
     return {
       type: LOGGED_OUT,
       meta: {
-        transition: (prevState, nextState, action) => ({ path: '/' })
+        transition: (prevState, nextState, action) => ({ pathname: '/' })
       }
     };
   }

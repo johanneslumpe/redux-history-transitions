@@ -29,7 +29,7 @@ import { createStore, compose } from 'redux';
 import storeEnhancer from 'redux-history-transitions';
 
 // you have to create your history instance here and pass it to the store enhancer
-// Note: in order to use `query`, you have to enhance your history using the `useQueries`
+// Note: in order to use `search`, you have to enhance your history using the `useQueries`
 // enhancer!
 
 const finalCreateStore = compose(
@@ -52,10 +52,8 @@ export default {
       }
       meta: {
         transition: (state, action) => ({
-          path: `/logged-in/${action.payload.userId}`,
-          query: {
-            some: 'queryParam'
-          },
+          pathname: `/logged-in/${action.payload.userId}`,
+          search: '?a=query',
           state: {
             some: 'state'
           }
@@ -66,7 +64,7 @@ export default {
 }
 ```
 
-Now every time you dispatch your `login` action, a transition to `/logged-in/SOMEUSERID` will happen automatically. Of course `query` and `state` are optional. They are just here to show a complete example.
+Now every time you dispatch your `login` action, a transition to `/logged-in/SOMEUSERID` will happen automatically. Of course `search` and `state` are optional. They are just here to show a complete example.
 
 ## Example
 
@@ -91,6 +89,6 @@ open http://localhost:3000
 
 Because the transition handlers should receive the state *after*  the action has been dispatched. And I did not want to use something like `_.defer`.
 
-### Can I perform `replaceState` transitions instead of `pushState`?
+### Can I perform `replace` transitions instead of `push`?
 
 Yes, just add `replace: true` to the object returned by your action's `meta.transition` function.

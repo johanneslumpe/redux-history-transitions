@@ -10,7 +10,7 @@ export default {
       type: ENTITY_NOT_FOUND,
       meta: {
         transition: (prevState, nextState, action) => (
-          { path: '/entity-not-found' }
+          { pathname: '/entity-not-found' }
         )
       }
     }

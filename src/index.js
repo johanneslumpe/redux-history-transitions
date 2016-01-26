@@ -21,10 +21,8 @@ export default (history, catchAllHandler) => {
         );
 
         if (transitionData) {
-          const { path, query, replace, state } = transitionData;
-          const method = replace ? 'replaceState' : 'pushState';
-
-          history[method](state, path, query);
+          const method = transitionData.replace ? 'replace' : 'push';
+          history[method](transitionData);
         }
 
         return action;
