@@ -26,15 +26,16 @@ Create an enhanced store like this:
 
 ```javascript
 import { createStore, compose } from 'redux';
-import storeEnhancer from 'redux-history-transitions';
+import handleTransitions from 'redux-history-transitions';
 
 // you have to create your history instance here and pass it to the store enhancer
 // Note: in order to use `search`, you have to enhance your history using the `useQueries`
 // enhancer!
 
-const finalCreateStore = compose(
-  storeEnhancer(history)
-)(createStore);
+const enhancer = handleTransitions(history)
+const store = createStore(reducer, initialState, enhancer);
+
+// Note: passing enhancer as the last argument to createStore requires redux@>=3.1.0
 ```
 
 Now you can dispatch actions in the following form and have your desired transition automatically executed for you:
