@@ -24,7 +24,7 @@ npm install --save redux-history-transitions
 
 Create an enhanced store like this:
 
-```javascript
+```js
 import { createStore, compose } from 'redux';
 import handleTransitions from 'redux-history-transitions';
 
@@ -40,7 +40,7 @@ const store = createStore(reducer, initialState, enhancer);
 
 Now you can dispatch actions in the following form and have your desired transition automatically executed for you:
 
-```javascript
+```js
 // we expect `LOGGED_IN` to have been imported here from your action constants
 
 export default {
@@ -66,6 +66,37 @@ export default {
 ```
 
 Now every time you dispatch your `login` action, a transition to `/logged-in/SOMEUSERID` will happen automatically. Of course `search` and `state` are optional. They are just here to show a complete example.
+
+### Delayed transitions
+Sometimes you might want to execute a transition after a delay. In order to do so you can return a promise from your transition handler. The same rules as above apply. If after the delay your state has changed, you can still resolve your promise with `undefined` in order to prevent any transition. (For example if you user has already manually changed the page).
+
+Here is an example using the [bluebird](https://github.com/petkaantonov/bluebird) promise library:
+
+```js
+export default {
+
+  login() {
+    return {
+      type: LOGGED_IN,
+      payload: {
+        userId: 123
+      }
+      meta: {
+        transition: (state, action) => (
+          Promise.delay(3000).then(() => {
+            pathname: `/logged-in/${action.payload.userId}`,
+            search: '?a=query',
+            state: {
+              some: 'state'
+            }
+          })
+        )
+      }
+    };
+  },
+}
+```
+
 
 ## Example
 
