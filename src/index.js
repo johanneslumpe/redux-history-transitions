@@ -1,32 +1,43 @@
-export default (history, catchAllHandler) => {
-  return next => (reducer, initialState) => {
-    const store = next(reducer, initialState);
+export const executeTransition = history => transitionData => {
+  if (transitionData) {
+    const method = transitionData.replace ? 'replace' : 'push';
+    history[method](transitionData);
+  }
+};
 
-    return {
-      ...store,
-      dispatch(action) {
-        const { type, meta } = action;
-        const transitionMetaFunc = meta ?
-          (meta.transition || catchAllHandler) :
-          catchAllHandler;
+export default (history, catchAllHandler) => next => (reducer, initialState) => {
+  const store = next(reducer, initialState);
+  const finalExecuteTransition = executeTransition(history);
 
-        const prevState = transitionMetaFunc && store.getState();
+  return {
+    ...store,
+    dispatch(action) {
+      const { meta } = action;
+      const transitionMetaFunc = meta ?
+        (meta.transition || catchAllHandler) :
+        catchAllHandler;
 
-        store.dispatch(action);
+      const prevState = transitionMetaFunc && store.getState();
 
-        const nextState = transitionMetaFunc && store.getState();
+      store.dispatch(action);
 
-        let transitionData = transitionMetaFunc && (
-          transitionMetaFunc(prevState, nextState, action)
-        );
+      const nextState = transitionMetaFunc && store.getState();
 
-        if (transitionData) {
-          const method = transitionData.replace ? 'replace' : 'push';
-          history[method](transitionData);
+      const transitionData = transitionMetaFunc && (
+        transitionMetaFunc(prevState, nextState, action)
+      );
+
+      if (transitionData) {
+        if (typeof transitionData.then === 'function') {
+          transitionData
+          .then(finalExecuteTransition)
+          .catch(finalExecuteTransition);
+        } else {
+          finalExecuteTransition(transitionData);
         }
-
-        return action;
       }
-    };
+
+      return action;
+    },
   };
-}
+};
