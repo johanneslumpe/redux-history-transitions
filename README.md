@@ -52,7 +52,7 @@ export default {
         userId: 123
       }
       meta: {
-        transition: (state, action) => ({
+        transition: (prevState, nextState, action) => ({
           pathname: `/logged-in/${action.payload.userId}`,
           search: '?a=query',
           state: {
@@ -82,7 +82,7 @@ export default {
         userId: 123
       }
       meta: {
-        transition: (state, action) => (
+        transition: (prevState, nextState, action) => (
           Promise.delay(3000).then(() => {
             pathname: `/logged-in/${action.payload.userId}`,
             search: '?a=query',
