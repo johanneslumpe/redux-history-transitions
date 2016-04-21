@@ -13,19 +13,35 @@ export default (history, catchAllHandler) => next => (reducer, initialState) => 
     ...store,
     dispatch(action) {
       const { meta } = action;
-      const transitionMetaFunc = meta ?
+      const transitionHandler = meta ?
         (meta.transition || catchAllHandler) :
         catchAllHandler;
 
-      const prevState = transitionMetaFunc && store.getState();
+      const prevState = transitionHandler && store.getState();
 
       store.dispatch(action);
 
-      const nextState = transitionMetaFunc && store.getState();
+      const nextState = transitionHandler && store.getState();
 
-      const transitionData = transitionMetaFunc && (
-        transitionMetaFunc(prevState, nextState, action)
-      );
+      let transitionData;
+
+      if (transitionHandler) {
+        if (typeof transitionHandler === 'object') {
+          const { error, meta: { done } } = action;
+          let handler = 'begin';
+
+          if (done) {
+            handler = error ? 'failure' : 'success';
+          }
+
+          const func = transitionHandler[handler];
+          if (func) {
+            transitionData = func(prevState, nextState, action);
+          }
+        } else {
+          transitionData = transitionHandler(prevState, nextState, action);
+        }
+      }
 
       if (transitionData) {
         if (typeof transitionData.then === 'function') {
