@@ -50,22 +50,46 @@ export default {
       type: LOGGED_IN,
       payload: {
         userId: 123
-      }
+      },
       meta: {
         transition: (prevState, nextState, action) => ({
           pathname: `/logged-in/${action.payload.userId}`,
           search: '?a=query',
           state: {
-            some: 'state'
-          }
-        })
-      }
+            some: 'state',
+          },
+        }),
+      },
     };
   },
 }
 ```
 
 Now every time you dispatch your `login` action, a transition to `/logged-in/SOMEUSERID` will happen automatically. Of course `search` and `state` are optional. They are just here to show a complete example.
+
+### Passing a transition object
+While the above works, it can quickly become tedious if you always have to manually check whether an action was complete successfully or failed. In order to remove this boilerplate you can use an object with a combination of `begin`, `success` and `failure` keys as your `meta.transition` value. The middleware will automatically inspect an action and determine which handler to call based on `action.error` and `action.meta.done`. The usage of `error` and `done` is losely based on the [FSA (flux standard action) spec](https://github.com/acdlite/flux-standard-action). Each handler is optional and will only be called if available. Here is an example which only transitions if the async action succeeded:
+
+```js
+export default {
+
+  login() {
+    return {
+      type: REGISTER_USER,
+      payload: {
+        username: 'testuser'
+      },
+      meta: {
+        transition: {
+          success: (prevState, nextState, action) => ({
+            pathname: `/user/${action.payload.userId}`,
+          }),
+        },
+      },
+    };
+  },
+}
+```
 
 ### Delayed transitions
 Sometimes you might want to execute a transition after a delay. In order to do so you can return a promise from your transition handler. The same rules as above apply. If after the delay your state has changed, you can still resolve your promise with `undefined` in order to prevent any transition. (For example if you user has already manually changed the page).
@@ -80,18 +104,18 @@ export default {
       type: LOGGED_IN,
       payload: {
         userId: 123
-      }
+      },
       meta: {
         transition: (prevState, nextState, action) => (
           Promise.delay(3000).then(() => {
             pathname: `/logged-in/${action.payload.userId}`,
             search: '?a=query',
             state: {
-              some: 'state'
-            }
-          })
-        )
-      }
+              some: 'state',
+            },
+          }),
+        ),
+      },
     };
   },
 }
