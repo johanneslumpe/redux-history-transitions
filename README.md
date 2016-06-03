@@ -80,6 +80,7 @@ export default {
         username: 'testuser'
       },
       meta: {
+        done: true,
         transition: {
           success: (prevState, nextState, action) => ({
             pathname: `/user/${action.payload.userId}`,
